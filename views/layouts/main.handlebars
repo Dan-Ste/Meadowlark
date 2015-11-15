@@ -8,11 +8,18 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 	<link rel="stylesheet" href="/style/main.css">
 	<script src="//code.jquery.com/jquery-2.0.2.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 	{{{_sections.head}}}
 </head>
 <body>
 	<div class="container">
-		<header class="text-center"><img src="/img/logo.jpg" alt="Meadowlark Travel Logo"></header>
+		<header class="text-center"><img src="/img/logo.png" alt="Meadowlark Travel Logo"></header>
+		{{#if flash}}
+			<div class="alert alert-dismissible alert-{{flash.type}}">
+				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+				<strong>{{flash.intro}}</strong> {{{flash.message}}}
+			</div>
+		{{/if}}
 		{{{body}}}
 	</div>
 	{{#if showTests}}

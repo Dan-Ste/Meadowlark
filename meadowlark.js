@@ -1,7 +1,9 @@
 var express = require('express'),
 	fortune = require('./lib/fortune.js'),
 	formidable = require('formidable'),
-	bodyParser = require('body-parser');
+	bodyParser = require('body-parser'),
+	jqupload = require('jquery-file-upload-middleware'),
+	credentials = require('./credentials.js');
 
 var app = express();
 
@@ -65,6 +67,14 @@ app.use(function(req, res, next){
 	next();
 });
 
+app.use(require('cookie-parser')(credentials.cookieSecret));
+app.use(require('express-session')());
+app.use(function(req, res, next) {
+	res.locals.flash = req.session.flash;
+	delete req.session.flash;
+	next();
+});
+
 app.get('/', function (req, res) {
 	res.render('home');
 });
@@ -124,6 +134,7 @@ app.post('/contest/vacation-photo/:year/:month', function(req, res){
 		res.redirect(303, '/thank-you');
 	});
 });
+
 
 app.get('/thank-you', function (req, res) {
 	res.render('thank-you');
